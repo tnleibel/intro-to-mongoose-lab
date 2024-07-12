@@ -2,7 +2,6 @@ const prompt = require('prompt-sync')();
 const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose');
-let choice 
 
 const connect = async () => {
     await mongoose.connect(process.env.MONGODB_URI);
@@ -15,31 +14,31 @@ const connect = async () => {
 
 const runQueries = async () => {
   console.log('Queries running.')
-  promptUser()
-  if(choice === "1") {
-    await createCustomer()
-    promptUser()
-  }
-  if(choice === "2") {
-    await getAllCustomers()
-    promptUser()
-  }
-  if(choice === "3") {
-    await updateCustomer()
-    promptUser()
-  }
-  if(choice === "4") {
-    await deleteCustomer()
-    promptUser()
-  }
-  if(choice === "5") {
-    await exit()
-  }
+    while(running === true) {
+        promptUser()
+        if(choice === "1") {
+            await createCustomer()
+        }
+        if(choice === "2") {
+            await getAllCustomers()
+        }
+        if(choice === "3") {
+            await updateCustomer()
+        }
+        if(choice === "4") {
+            await deleteCustomer()
+        }
+        if(choice === "5") {
+            await exit()
+        }
+    }
 };
 
 connect()
 console.log("Welcome to the CRM")
 const Customer = require('./models/customer.js');
+let choice 
+let running = true
 
 
 function promptUser() {
@@ -94,5 +93,6 @@ const deleteCustomer = async () => {
 }
 
 const exit = async () => {
+    running = false
     await mongoose.connection.close()
 }
