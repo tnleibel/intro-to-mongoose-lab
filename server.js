@@ -72,8 +72,8 @@ const updateCustomer = async () => {
     const idPrompt = prompt("Copy and paste the id of the customer you would like to update here:")
     const id = idPrompt
     const customer = await Customer.findById(id)
-    const updateNamePrompt = prompt("What is the new customer's name? ")
-    const updateAgePrompt = prompt("What is the new customer's age? ")
+    const updateNamePrompt = prompt("What is the customer's new name? ")
+    const updateAgePrompt = prompt("What is the customer's new age? ")
     customer.name = updateNamePrompt
     customer.age = updateAgePrompt
     await customer.save()
